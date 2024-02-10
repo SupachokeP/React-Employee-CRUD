@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
@@ -19,7 +19,11 @@ builder.Services.AddCors(options =>
     });
 });
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Employee", Version = "v1" });
+});
+
 var app = builder.Build();
 builder.Configuration.AddJsonFile("appsettings.json");
 
@@ -27,12 +31,22 @@ builder.Configuration.AddJsonFile("appsettings.json");
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-}
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
+    // Enable Swagger only in development mode
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee v1");
+    });
+}
+else
+{
+    // Enable Swagger in non-development mode
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee v1");
+    });
 }
 
 app.UseHttpsRedirection();
