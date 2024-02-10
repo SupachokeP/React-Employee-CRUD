@@ -17,7 +17,7 @@ function ListEmployeePage() {
   }, [searchCriteria]);
 
   const loadEmployeesFromDatabase = () => {
-    fetch("http://localhost:5219/api/Data/GetEmployee")
+    fetch("http://localhost:5000/api/Data/GetEmployee")
       .then((response) => response.json())
       .then((data) => {
         setEmployees(data);
@@ -42,7 +42,7 @@ function ListEmployeePage() {
     );
     if (confirmDelete) {
       // Send DELETE request to the API endpoint
-      fetch(`http://localhost:5219/api/Data/DeleteEmployee/${employeeId}`, {
+      fetch(`http://localhost:5000/api/Data/DeleteEmployee/${employeeId}`, {
         method: "DELETE",
       })
         .then((response) => {
@@ -238,7 +238,8 @@ function AddEmployeeForm({
     };
 
     // Send data to the API endpoint
-    fetch("http://localhost:5219/api/Data/UpsertEmployee", {
+    
+    fetch("http://localhost:5000/api/Data/UpsertEmployee", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
