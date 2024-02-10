@@ -968,11 +968,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\idtim\\Desktop\\Coding\\test\\API\\Ang-test\\Ang-test\\Ang-test.csproj",
+      "projectUniqueName": "C:\\Users\\idtim\\Desktop\\Coding\\test\\React-Employee-CRUD\\API\\Ang-test\\Ang-test\\Ang-test.csproj",
       "projectName": "Ang-test",
-      "projectPath": "C:\\Users\\idtim\\Desktop\\Coding\\test\\API\\Ang-test\\Ang-test\\Ang-test.csproj",
+      "projectPath": "C:\\Users\\idtim\\Desktop\\Coding\\test\\React-Employee-CRUD\\API\\Ang-test\\Ang-test\\Ang-test.csproj",
       "packagesPath": "C:\\Users\\idtim\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\idtim\\Desktop\\Coding\\test\\API\\Ang-test\\Ang-test\\obj\\",
+      "outputPath": "C:\\Users\\idtim\\Desktop\\Coding\\test\\React-Employee-CRUD\\API\\Ang-test\\Ang-test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\idtim\\AppData\\Roaming\\NuGet\\NuGet.Config",

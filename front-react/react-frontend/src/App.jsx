@@ -64,13 +64,28 @@ function ListEmployeePage() {
     // Show add employee form
     setShowAddEmployeeForm(true);
   };
-  const handleSearchChange = (e, field) => {
-    setSearchCriteria({ ...searchCriteria, [field]: e.target.value });
+  const [inputValues, setInputValues] = useState({
+    employeeID: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    status: "",
+  });
+
+  const handleSearchChange = (e) => {
+    const { name, value } = e.target;
+    setInputValues({
+      ...inputValues,
+      [name]: value,
+    });
   };
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    setSearchCriteria(inputValues);
     loadEmployeesFromDatabase();
   };
+
   const filterEmployees = (employee) => {
     const { employeeID, email, status, firstName, lastName } = searchCriteria;
     return (
@@ -81,48 +96,65 @@ function ListEmployeePage() {
       employee.lastName.toLowerCase().includes(lastName.toLowerCase())
     );
   };
+
   const filteredEmployees = employees.filter(filterEmployees);
 
   return (
     <div className="container">
       <h1>List Employee Page</h1>
-      <form onSubmit={handleSearchSubmit}>
+      <form className="form-container" onSubmit={handleSearchSubmit}>
         <input
           type="text"
+          name="employeeID"
           placeholder="Employee ID"
-          value={searchCriteria.employeeID}
-          onChange={(e) => handleSearchChange(e, "employeeID")}
+          value={inputValues.employeeID}
+          onChange={handleSearchChange}
+          className="form-input"
         />
         <input
           type="text"
+          name="firstName"
           placeholder="First Name"
-          value={searchCriteria.firstName}
-          onChange={(e) => handleSearchChange(e, "firstName")}
+          value={inputValues.firstName}
+          onChange={handleSearchChange}
+          className="form-input"
         />
         <input
           type="text"
+          name="lastName"
           placeholder="Last Name"
-          value={searchCriteria.lastName}
-          onChange={(e) => handleSearchChange(e, "lastName")}
+          value={inputValues.lastName}
+          onChange={handleSearchChange}
+          className="form-input"
         />
         <input
           type="text"
+          name="email"
           placeholder="Email"
-          value={searchCriteria.email}
-          onChange={(e) => handleSearchChange(e, "email")}
+          value={inputValues.email}
+          onChange={handleSearchChange}
+          className="form-input"
         />
         <select
-          value={searchCriteria.status}
-          onChange={(e) => handleSearchChange(e, "status")}
+          name="status"
+          value={inputValues.status}
+          onChange={handleSearchChange}
+          className="form-input"
         >
-          <option value="">Select Status</option>
+          <option value="">All</option>
           <option value="Y">Active</option>
           <option value="N">Inactive</option>
         </select>
+        <div className="btn-container">
+          <button type="submit" className="btn btn-success">
+            Submit Search
+          </button>
+          <button onClick={handleAddEmployee} className="btn btn-success">
+            Add Employee
+          </button>
+        </div>
       </form>
-      <button onClick={handleAddEmployee} className="btn btn-success">
-        Add Employee
-      </button>
+
       <table className="table mt-3">
         <thead>
           <tr>
@@ -145,13 +177,13 @@ function ListEmployeePage() {
               <td>
                 <button
                   onClick={() => handleEditEmployee(employee.employeeID)}
-                  className="btn btn-primary me-2"
+                  className="btn btn-edit"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDeleteEmployee(employee.employeeID)}
-                  className="btn btn-danger"
+                  className="btn btn-delete"
                 >
                   Delete
                 </button>
@@ -271,7 +303,7 @@ function AddEmployeeForm({
               onChange={(e) => setActiveStatus(e.target.checked ? "Y" : "N")}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-success">
             Submit
           </button>
         </form>
